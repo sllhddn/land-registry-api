@@ -1,0 +1,23 @@
+### Create a parcel
+POST http://localhost:8080/api/parcels
+Content-Type: application/json
+
+{"lotNo": "LOT-1024", "district": "District A", "areaSqm": 1250.5, "tenure": "FREEHOLD"}
+
+### Submit an application (use the parcel id returned above)
+POST http://localhost:8080/api/applications
+Content-Type: application/json
+
+{"parcelId": 1, "type": "TRANSFER", "applicantName": "Siti Aminah", "feeAmount": 150.00}
+
+### Move it through the workflow (use the application id returned above)
+POST http://localhost:8080/api/applications/1/transitions
+Content-Type: application/json
+
+{"status": "UNDER_REVIEW", "remarks": "documents received"}
+
+### List applications under review
+GET http://localhost:8080/api/applications?status=UNDER_REVIEW&page=0&size=20
+
+### Counts per status
+GET http://localhost:8080/api/applications/summary
